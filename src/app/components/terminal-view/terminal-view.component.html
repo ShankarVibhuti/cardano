@@ -1,0 +1,14 @@
+<div class="h-[calc(100vh-140px)] bg-[#000510] rounded-xl border border-gray-800 p-4 font-mono text-sm overflow-y-auto animate-fadeIn shadow-2xl"
+    #scrollContainer>
+    <div *ngFor="let log of logs" class="mb-2 break-words">
+        <span class="text-gray-600 mr-2">[{{ log.timestamp | date:'ISO' }}]</span>
+        <span class="font-bold mr-2" [ngClass]="{
+             'text-[#00D1FF]': log.source === 'AI_AGENT',
+             'text-purple-500': log.source === 'BLOCKCHAIN',
+             'text-yellow-500': log.source === 'SENSOR',
+             'text-gray-500': log.source === 'SYSTEM'
+          }">{{ log.source }}</span>
+        <span [ngClass]="{'text-red-500': log.type === 'error', 'text-green-500': log.type === 'success'}">{{
+            log.message }}</span>
+    </div>
+</div>
