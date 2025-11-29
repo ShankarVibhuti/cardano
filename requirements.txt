@@ -1,8 +1,9 @@
 fastapi
 uvicorn
 python-dotenv
-crewai
+crewai[google-genai]
 masumi
 pydantic
 python-multipart
 httpx
+litellm

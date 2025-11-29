@@ -6,7 +6,7 @@ from fastapi import FastAPI, Query, HTTPException
 from pydantic import BaseModel, Field, field_validator
 from masumi.config import Config
 from masumi.payment import Payment, Amount
-from crew_definition import ResearchCrew
+from crew_definition import SmartContainerCrew
 from logging_config import setup_logging
 
 # Configure logging
@@ -71,7 +71,7 @@ class ProvideInputRequest(BaseModel):
 async def execute_crew_task(input_data: str) -> str:
     """ Execute a CrewAI task with Research and Writing Agents """
     logger.info(f"Starting CrewAI task with input: {input_data}")
-    crew = ResearchCrew(logger=logger)
+    crew = SmartContainerCrew(logger=logger)
     inputs = {"text": input_data}
     result = crew.crew.kickoff(inputs)
     logger.info("CrewAI task completed successfully")
@@ -305,7 +305,7 @@ def main():
     os.environ['CREWAI_DISABLE_TELEMETRY'] = 'true'
     
     print("\n" + "=" * 70)
-    print("🚀 Running CrewAI agents locally (standalone mode)...")
+    print("Running CrewAI agents locally (standalone mode)...")
     print("=" * 70 + "\n")
     
     # Define test input
@@ -315,12 +315,12 @@ def main():
     print("\nProcessing with CrewAI agents...\n")
     
     # Initialize and run the crew
-    crew = ResearchCrew(verbose=True)
+    crew = SmartContainerCrew(verbose=True)
     result = crew.crew.kickoff(inputs=input_data)
     
     # Display the result
     print("\n" + "=" * 70)
-    print("✅ Crew Output:")
+    print("Crew Output:")
     print("=" * 70 + "\n")
     print(result)
     print("\n" + "=" * 70 + "\n")
@@ -340,7 +340,7 @@ if __name__ == "__main__":
         host = os.environ.get("API_HOST", "127.0.0.1")
 
         print("\n" + "=" * 70)
-        print("🚀 Starting FastAPI server with Masumi integration...")
+        print("Starting FastAPI server with Masumi integration...")
         print("=" * 70)
         print(f"API Documentation:        http://{host}:{port}/docs")
         print(f"Availability Check:       http://{host}:{port}/availability")

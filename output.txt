@@ -1,0 +1,116 @@
+
+======================================================================
+Running CrewAI agents locally (standalone mode)...
+======================================================================
+
+Input: The impact of AI on the job market
+
+Processing with CrewAI agents...
+
+┌───────────────────────────── 🤖 Agent Started ──────────────────────────────┐
+│                                                                             │
+│  Agent: Research Analyst                                                    │
+│                                                                             │
+│  Task: Research: The impact of AI on the job market                         │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+Traceback (most recent call last):
+  File "C:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\main.py", line 354, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\main.py", line 319, in main
+    result = crew.crew.kickoff(inputs=input_data)
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\crewai\crew.py", line 755, in kickoff
+    result = self._run_sequential_process()
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\crewai\crew.py", line 995, in _run_sequential_process
+    return self._execute_tasks(self.tasks)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\crewai\crew.py", line 1103, in _execute_tasks
+    task_output = task.execute_sync(
+        agent=agent_to_use,
+        context=context,
+        tools=tools_for_task,
+    )
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\crewai\task.py", line 458, in execute_sync
+    return self._execute_core(agent, context, tools)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\crewai\task.py", line 591, in _execute_core
+    raise e  # Re-raise the exception after emitting the event
+    ^^^^^^^
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\crewai\task.py", line 522, in _execute_core
+    result = agent.execute_task(
+        task=self,
+        context=context,
+        tools=tools,
+    )
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\crewai\agent\core.py", line 514, in execute_task
+    raise e
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\crewai\agent\core.py", line 490, in execute_task
+    result = self._execute_without_timeout(task_prompt, task)
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\crewai\agent\core.py", line 598, in _execute_without_timeout
+    return self.agent_executor.invoke(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        {
+        ^
+    ...<4 lines>...
+        }
+        ^
+    )["output"]
+    ^
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\crewai\agents\crew_agent_executor.py", line 188, in invoke
+    formatted_answer = self._invoke_loop()
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\crewai\agents\crew_agent_executor.py", line 287, in _invoke_loop
+    raise e
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\crewai\agents\crew_agent_executor.py", line 229, in _invoke_loop
+    answer = get_llm_response(
+        llm=self.llm,
+    ...<6 lines>...
+        executor_context=self,
+    )
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\crewai\utilities\agent_utils.py", line 276, in get_llm_response
+    raise e
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\crewai\utilities\agent_utils.py", line 268, in get_llm_response
+    answer = llm.call(
+        messages,
+    ...<3 lines>...
+        response_model=response_model,
+    )
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\crewai\llm.py", line 1375, in call
+    return self._handle_non_streaming_response(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        params=params,
+        ^^^^^^^^^^^^^^
+    ...<4 lines>...
+        response_model=response_model,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\crewai\llm.py", line 1135, in _handle_non_streaming_response
+    response = litellm.completion(**params)
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\litellm\utils.py", line 1382, in wrapper
+    raise e
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\litellm\utils.py", line 1251, in wrapper
+    result = original_function(*args, **kwargs)
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\litellm\main.py", line 3842, in completion
+    raise exception_type(
+    ...<5 lines>...
+    )
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\litellm\main.py", line 1181, in completion
+    model, custom_llm_provider, dynamic_api_key, api_base = get_llm_provider(
+                                                            ~~~~~~~~~~~~~~~~^
+        model=model,
+        ^^^^^^^^^^^^
+    ...<2 lines>...
+        api_key=api_key,
+        ^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\litellm\litellm_core_utils\get_llm_provider_logic.py", line 442, in get_llm_provider
+    raise e
+  File "c:\Users\Vibhuti\Documents\Cardano\crewai-masumi-quickstart-template\.venv\Lib\site-packages\litellm\litellm_core_utils\get_llm_provider_logic.py", line 419, in get_llm_provider
+    raise litellm.exceptions.BadRequestError(  # type: ignore
+    ...<8 lines>...
+    )
+litellm.exceptions.BadRequestError: litellm.BadRequestError: LLM Provider NOT provided. Pass in the LLM provider you are trying to call. You passed model=models/gemini-1.5-flash
+ Pass model as E.g. For 'Huggingface' inference endpoints pass in `completion(model='huggingface/starcoder',..)` Learn more: https://docs.litellm.ai/docs/providers
