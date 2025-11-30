@@ -10,19 +10,21 @@ import { WalletViewComponent } from './components/wallet-view/wallet-view.compon
 import { TerminalViewComponent } from './components/terminal-view/terminal-view.component';
 import { SettingsViewComponent } from './components/settings-view/settings-view.component';
 
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
+    FormsModule,
+    HttpClientModule,
     SidebarComponent,
     DashboardViewComponent,
     WalletViewComponent,
     TerminalViewComponent,
-    SettingsViewComponent,
-    FormsModule
+    SettingsViewComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
