@@ -1,4 +1,49 @@
+# 🚢 Financially Autonomous Smart Container (Cardano M2M Agent)
+
+[![YouTube Video Thumbnail](https://img.youtube.com/vi/hy-lqROwXaU/0.jpg)](https://youtu.be/hy-lqROwXaU)
+
+## Project Overview: The Agentic Shift in Cold Chain Logistics
+
+This repository contains the prototype for a **Financially Autonomous Smart Container**, an AI Agent system designed to eliminate the **Decision Latency** that costs the logistics industry billions in spoiled cargo.
+
+We use **Masumi** and **Cardano** to transform a passive sensor into a **Sovereign Economic Actor** capable of negotiating, transacting, and remediating problems in real-time.
+
+### **Core Technologies**
+
+* **Agents:** CrewAI (Python) using Gemini (LLM) for contextual reasoning.
+* **Settlement:** Masumi Protocol for decentralized payments on the Cardano blockchain.
+* **IoT:** FastAPI used as the interface for Raspberry Pi/IoT edge device data streams.
+
+---
+
 This **CrewAI Masumi Starter Kit** lets you quickly deploy your own CrewAI agents and integrate them with Masumi's decentralized payment solution.
+
+**Key benefits:**
+
+* Simple setup: Just clone, configure, and deploy.
+* Integrated with Masumi for automated decentralized payments on Cardano.
+* Production-ready API built with FastAPI.
+
+---
+
+Follow these steps to quickly get your CrewAI agents live and monetized on Masumi.
+
+### **1. Clone Repository**
+
+Prerequisites:
+
+* Python >= 3.10 and < 3.13
+* `uv` (Python package manager, recommended for speed and efficiency)
+
+Clone the repository and navigate into the directory:
+
+```bash
+git clone [https://github.com/masumi-network/crewai-masumi-quickstart-template.git](https://github.com/masumi-network/crewai-masumi-quickstart-template.git)
+cd crewai-masumi-quickstart-templateT
+
+
+
+his **CrewAI Masumi Starter Kit** lets you quickly deploy your own CrewAI agents and integrate them with Masumi's decentralized payment solution.
 
 **Key benefits:**
 
