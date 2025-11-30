@@ -1,118 +1,173 @@
-<div class="animate-fadeIn grid grid-cols-1 lg:grid-cols-12 gap-6">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-6 p-6 animate-fadeIn">
 
-    <!-- SENSORS (4 cols) -->
     <div class="lg:col-span-4 space-y-6">
-        <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest flex items-center gap-2">IoT Sensors</h2>
-
-        <!-- Interactive Temp Card -->
         <div
-            class="relative bg-[#101D35]/80 backdrop-blur rounded-xl border border-blue-900/30 p-6 shadow-xl overflow-hidden group hover:border-[#00D1FF]/30 transition-all">
-            <div class="flex justify-between items-start mb-4">
-                <span class="text-gray-400 text-sm font-medium">Internal Temp</span>
-                <span [class]="getTempColorClass()" class="px-2 py-1 rounded text-xs font-bold uppercase border">
-                    {{ getStatusText() }}
-                </span>
-            </div>
-            <div class="flex items-baseline gap-1">
-                <span class="text-5xl font-mono font-bold text-white tracking-tighter">{{ temperature.toFixed(1)
-                    }}</span>
-                <span class="text-xl text-gray-500">°C</span>
-            </div>
-            <div class="mt-4 w-full bg-[#000B1D] rounded-full h-1.5 overflow-hidden">
-                <div class="h-full transition-all duration-500 ease-out shadow-[0_0_10px_currentColor]"
-                    [ngClass]="getTempBarClass()" [style.width.%]="(temperature / 20) * 100">
+            class="bg-[#101D35]/80 backdrop-blur rounded-2xl border border-blue-900/30 p-6 shadow-xl relative overflow-hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-gray-400 text-xs font-bold uppercase tracking-widest">Container State</h3>
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    <span class="text-green-500 text-xs font-bold">ONLINE</span>
                 </div>
             </div>
-            <p class="mt-2 text-xs text-gray-500">Threshold: <span class="text-gray-300 font-mono">{{
-                    config.tempThreshold.toFixed(1) }}°C</span></p>
-        </div>
 
-        <!-- Humidity -->
-        <div class="bg-[#101D35]/80 backdrop-blur rounded-xl border border-blue-900/30 p-6 shadow-xl">
-            <div class="flex justify-between items-start mb-4">
-                <span class="text-gray-400 text-sm font-medium">Humidity</span>
-                <span
-                    class="text-green-400 text-xs font-bold bg-green-400/10 px-2 py-1 rounded border border-green-400/20 shadow-[0_0_5px_rgba(74,222,128,0.2)]">OK</span>
-            </div>
-            <div class="flex items-baseline gap-1">
-                <span class="text-4xl font-mono font-bold text-white tracking-tighter">{{ humidity.toFixed(1) }}</span>
-                <span class="text-lg text-gray-500">%</span>
-            </div>
-        </div>
-
-        <!-- Map Placeholder -->
-        <div
-            class="bg-[#101D35]/80 backdrop-blur rounded-xl border border-blue-900/30 p-4 h-32 flex items-center justify-center relative overflow-hidden">
-            <div class="absolute inset-0 bg-[url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg')] bg-cover opacity-10 bg-center"
-                style="filter: invert(1) sepia(1) hue-rotate(180deg) saturate(2);"></div>
-            <div class="relative z-10 flex flex-col items-center">
-                <div class="w-3 h-3 bg-[#00D1FF] rounded-full animate-ping absolute"></div>
-                <div class="w-3 h-3 bg-[#00D1FF] rounded-full relative border-2 border-white"></div>
-                <span class="text-xs text-white font-mono mt-2 bg-black/50 px-2 rounded border border-blue-500/20">En
-                    Route: IN -> DE</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- TERMINAL MINI (5 cols) -->
-    <div class="lg:col-span-5 flex flex-col gap-2">
-        <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest">Live Agent Decision Log</h2>
-        <div
-            class="flex-1 bg-[#000510] rounded-xl border border-gray-800 overflow-hidden flex flex-col shadow-2xl relative min-h-[400px]">
-            <div class="bg-[#0B1926] px-3 py-1.5 border-b border-gray-800 flex justify-between">
-                <span class="text-[10px] text-gray-400 font-mono">agent_core_v1.py</span>
-                <div class="flex gap-1">
-                    <div class="w-2 h-2 rounded-full bg-red-500/50"></div>
-                    <div class="w-2 h-2 rounded-full bg-yellow-500/50"></div>
-                    <div class="w-2 h-2 rounded-full bg-green-500/50"></div>
-                </div>
-            </div>
-            <div class="flex-1 p-3 font-mono text-xs overflow-y-auto space-y-1.5 scroll-smooth" #scrollContainer>
-                <div *ngFor="let log of logs" class="flex gap-2">
-                    <span class="text-gray-600 shrink-0">{{ log.timestamp | date:'HH:mm:ss' }}</span>
-                    <span [ngClass]="{
-                    'text-green-400': log.type === 'success',
-                    'text-red-400 font-bold': log.type === 'error',
-                    'text-yellow-300': log.type === 'warning',
-                    'text-[#00D1FF]': log.source === 'AI_AGENT',
-                    'text-gray-400': log.type === 'neutral'
-                  }">
-                        <span *ngIf="log.source === 'AI_AGENT'"
-                            class="text-[10px] bg-blue-500/10 text-[#00D1FF] px-1 rounded mr-1">AI</span>
-                        {{ log.message }}</span>
-                </div>
-                <div *ngIf="isProcessing" class="text-[#00D1FF] animate-pulse pl-4">Agent is thinking...</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ACTIVITY FEED (3 cols) -->
-    <div class="lg:col-span-3 flex flex-col gap-2">
-        <h2 class="text-xs font-bold text-gray-500 uppercase tracking-widest">Recent Actions</h2>
-        <div class="flex-1 bg-[#101D35]/80 backdrop-blur rounded-xl border border-blue-900/30 p-0 overflow-hidden">
-            <div *ngIf="transactions.length === 0"
-                class="h-full flex flex-col items-center justify-center text-gray-500 p-4 text-center">
-                <svg class="w-8 h-8 mb-2 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                </svg>
-                <span class="text-xs">No settlements yet</span>
-            </div>
-            <div class="divide-y divide-blue-900/30">
-                <div *ngFor="let tx of transactions" class="p-3 hover:bg-blue-500/5 transition-colors group">
-                    <div class="flex justify-between items-start">
-                        <div class="text-xs text-white font-medium">{{ tx.purpose }}</div>
-                        <div class="text-xs font-mono font-bold text-red-400">-{{ tx.amount }} ₳</div>
+            <div class="space-y-6">
+                <div>
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="text-gray-400">Battery (Energy)</span>
+                        <span [class]="battery < 20 ? 'text-red-500 font-bold' : 'text-white'">{{ battery }}%</span>
                     </div>
-                    <div class="flex justify-between items-end mt-1">
-                        <div class="text-[10px] text-gray-500 font-mono">{{ tx.hash | slice:0:6 }}...</div>
-                        <div
-                            class="text-[10px] bg-green-900/30 text-green-400 px-1.5 rounded border border-green-500/20 shadow-[0_0_5px_rgba(74,222,128,0.1)]">
-                            {{ tx.status }}</div>
+                    <div class="w-full bg-[#000B1D] h-2 rounded-full overflow-hidden">
+                        <div class="h-full transition-all duration-1000" [style.width.%]="battery"
+                            [class]="battery < 20 ? 'bg-red-500' : 'bg-[#00D1FF]'"></div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center p-3 bg-[#000B1D] rounded-lg border border-blue-900/50">
+                    <span class="text-xs text-gray-400">Identity (DID)</span>
+                    <span *ngIf="customsCleared" class="text-green-400 text-xs font-bold flex items-center gap-1">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                            </path>
+                        </svg>
+                        VERIFIED
+                    </span>
+                    <span *ngIf="!customsCleared" class="text-yellow-500 text-xs font-bold">LOCKED</span>
+                </div>
+
+                <div>
+                    <div class="flex justify-between text-xs mb-1">
+                        <span class="text-gray-400">Shock Sensor (G-Force)</span>
+                        <span [class]="gForce > 40 ? 'text-red-500 font-bold' : 'text-white'">{{ gForce }} G</span>
+                    </div>
+                    <div class="w-full bg-[#000B1D] h-2 rounded-full overflow-hidden relative">
+                        <div class="absolute left-[80%] h-full w-0.5 bg-red-500/50"></div>
+                        <div class="h-full bg-purple-500 transition-all duration-300"
+                            [style.width.%]="(gForce / 60) * 100"></div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="bg-[#000B1D] rounded-2xl border border-gray-800 p-6">
+            <h3 class="text-gray-500 text-xs font-bold uppercase tracking-widest mb-4">Event Simulation Hub</h3>
+            <div class="grid grid-cols-1 gap-3">
+                <button (click)="triggerEvent.emit('ENERGY')" [disabled]="isProcessing"
+                    class="group relative overflow-hidden bg-blue-900/20 hover:bg-blue-900/40 border border-blue-500/30 p-3 rounded-lg text-left transition-all disabled:opacity-50">
+                    <div class="flex items-center gap-3 relative z-10">
+                        <div class="w-8 h-8 rounded bg-blue-500/20 flex items-center justify-center text-blue-400"><svg
+                                class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            </svg></div>
+                        <div>
+                            <div class="text-sm font-bold text-white group-hover:text-[#00D1FF]">Energy Crisis</div>
+                            <div class="text-[10px] text-gray-500">Simulate low battery & auto-negotiation</div>
+                        </div>
+                    </div>
+                </button>
+
+                <button (click)="triggerEvent.emit('CUSTOMS')" [disabled]="isProcessing"
+                    class="group relative overflow-hidden bg-purple-900/20 hover:bg-purple-900/40 border border-purple-500/30 p-3 rounded-lg text-left transition-all disabled:opacity-50">
+                    <div class="flex items-center gap-3 relative z-10">
+                        <div class="w-8 h-8 rounded bg-purple-500/20 flex items-center justify-center text-purple-400">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
+                                </path>
+                            </svg></div>
+                        <div>
+                            <div class="text-sm font-bold text-white group-hover:text-purple-300">Border Check</div>
+                            <div class="text-[10px] text-gray-500">Request Credentials & Sign DID</div>
+                        </div>
+                    </div>
+                </button>
+
+                <button (click)="triggerEvent.emit('INSURANCE')" [disabled]="isProcessing"
+                    class="group relative overflow-hidden bg-red-900/20 hover:bg-red-900/40 border border-red-500/30 p-3 rounded-lg text-left transition-all disabled:opacity-50">
+                    <div class="flex items-center gap-3 relative z-10">
+                        <div class="w-8 h-8 rounded bg-red-500/20 flex items-center justify-center text-red-400"><svg
+                                class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z">
+                                </path>
+                            </svg></div>
+                        <div>
+                            <div class="text-sm font-bold text-white group-hover:text-red-300">Impact Damage</div>
+                            <div class="text-[10px] text-gray-500">Trigger Parametric Insurance Payout</div>
+                        </div>
+                    </div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="lg:col-span-8 flex flex-col gap-6">
+
+        <div
+            class="bg-[#000510] rounded-xl border border-gray-800 p-6 min-h-[160px] flex items-center justify-center relative overflow-hidden">
+            <div
+                class="absolute inset-0 bg-gradient-to-b from-transparent via-[#0033AD]/10 to-transparent animate-scan pointer-events-none">
+            </div>
+
+            <div *ngIf="!isProcessing" class="text-center">
+                <div class="text-[#00D1FF]/50 text-6xl mb-2"><i class="fas fa-brain"></i></div>
+                <div class="text-gray-600 text-sm font-mono animate-pulse">Awaiting Event Triggers...</div>
+            </div>
+
+            <div *ngIf="isProcessing" class="w-full max-w-lg">
+                <div class="flex justify-between text-xs font-mono text-[#00D1FF] mb-2">
+                    <span>{{ processingStep }}</span>
+                    <span class="animate-pulse">PROCESSING</span>
+                </div>
+                <div class="w-full bg-gray-900 h-1 rounded-full overflow-hidden">
+                    <div class="h-full bg-[#00D1FF] animate-progress"></div>
+                </div>
+                <div class="mt-4 grid grid-cols-3 gap-2 text-[10px] font-mono text-gray-500 text-center">
+                    <div [class.text-white]="processingStage >= 1">1. SENSING</div>
+                    <div [class.text-white]="processingStage >= 2">2. POLICY CHECK</div>
+                    <div [class.text-white]="processingStage >= 3">3. EXECUTION</div>
+                </div>
+            </div>
+        </div>
+
+        <div
+            class="flex-1 bg-[#101D35]/80 backdrop-blur rounded-2xl border border-blue-900/30 flex flex-col shadow-2xl overflow-hidden h-[400px]">
+            <div class="bg-[#000B1D] px-4 py-3 border-b border-blue-900/30 flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <span class="text-xs font-bold text-white uppercase tracking-wider">Live Regulatory Audit Log</span>
+                </div>
+                <span class="text-[10px] text-gray-500 font-mono">EU_AI_ACT_COMPLIANT</span>
+            </div>
+
+            <div class="flex-1 p-4 overflow-y-auto font-mono text-xs space-y-4" #logContainer>
+                <div *ngFor="let audit of auditLogs"
+                    class="bg-[#000510] border border-gray-800 p-3 rounded lg:rounded-lg animate-fadeIn relative">
+                    <div class="absolute top-2 right-2 text-[8px] text-gray-600">{{ audit.timestamp |
+                        date:'HH:mm:ss:SSS' }}</div>
+                    <div class="text-blue-400 font-bold mb-1">{{ audit.category }} EVENT DETECTED</div>
+                    <div class="text-gray-300 break-all whitespace-pre-wrap">{{ audit.json | json }}</div>
+                    <div class="mt-2 pt-2 border-t border-gray-800 text-[10px] text-green-500 flex items-center gap-1">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z">
+                            </path>
+                        </svg>
+                        HASH ANCHORED ON CARDANO
+                    </div>
+                </div>
+
+                <div *ngIf="auditLogs.length === 0"
+                    class="h-full flex flex-col items-center justify-center text-gray-600 opacity-50">
+                    <div>Waiting for agent actions...</div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 </div>

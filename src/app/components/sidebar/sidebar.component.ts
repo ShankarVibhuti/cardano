@@ -12,4 +12,11 @@ import { ViewState } from 'src/app/models/system.models';
 export class SidebarComponent {
   @Input() activeView: ViewState = 'DASHBOARD';
   @Output() onNavigate = new EventEmitter<ViewState>();
+
+  navItems: { id: ViewState, icon: string }[] = [
+    { id: 'DASHBOARD', icon: 'fas fa-network-wired' },
+    { id: 'WALLET', icon: 'fas fa-wallet' },
+    { id: 'TERMINAL', icon: 'fas fa-terminal' },
+    { id: 'SETTINGS', icon: 'fas fa-cog' },
+  ];
 }

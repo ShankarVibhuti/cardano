@@ -1,73 +1,59 @@
-<div class="max-w-3xl mx-auto animate-fadeIn">
-    <h2 class="text-2xl font-bold text-white mb-6">System Configuration</h2>
+<div class="max-w-3xl mx-auto animate-fadeIn p-6">
+    <h2 class="text-2xl font-bold text-white mb-6">Agent Configuration</h2>
 
     <div class="bg-[#101D35]/80 backdrop-blur-md border border-blue-900/30 rounded-xl p-8 space-y-8 shadow-xl">
 
-        <!-- Safety Thresholds -->
         <div>
-            <h3 class="text-lg font-medium text-white mb-4 flex items-center gap-2">
-                <svg class="w-5 h-5 text-[#00D1FF]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                </svg>
-                Automated Policy Rules
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="space-y-2">
-                    <label class="text-sm text-gray-400 flex justify-between">
-                        Max Temperature Threshold
-                        <span class="text-white font-mono font-bold">{{ config.tempThreshold }}°C</span>
-                    </label>
-                    <input type="range" min="0" max="25" step="0.5" [(ngModel)]="config.tempThreshold"
-                        (ngModelChange)="onConfigChange.emit(config)"
-                        class="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-[#0033AD]">
-                    <p class="text-xs text-gray-500">If exceeded, AI Agent will trigger mitigation.</p>
+            <h3 class="text-lg font-medium text-[#00D1FF] mb-4">Hardware Root of Trust & Compliance</h3>
+            <div class="flex items-center justify-between p-4 bg-[#000B1D] rounded-lg border border-blue-900/50">
+                <div>
+                    <div class="text-white font-bold">Use Hardware Secure Element (Zymbit)</div>
+                    <div class="text-xs text-gray-500">Keys never leave the physical device.</div>
                 </div>
-
-                <div class="space-y-2">
-                    <label class="text-sm text-gray-400 flex justify-between">
-                        Auto-Payment Limit
-                        <span class="text-white font-mono font-bold">{{ config.autoPaymentLimit }} ₳</span>
-                    </label>
-                    <input type="range" min="5" max="100" step="5" [(ngModel)]="config.autoPaymentLimit"
-                        (ngModelChange)="onConfigChange.emit(config)"
-                        class="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-[#00D1FF]">
-                    <p class="text-xs text-gray-500">Max amount Agent can spend without human override.</p>
-                </div>
-            </div>
-        </div>
-
-        <hr class="border-gray-800">
-
-        <!-- Network Settings -->
-        <div>
-            <h3 class="text-lg font-medium text-white mb-4 flex items-center gap-2">
-                <svg class="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
-                Network & Oracle
-            </h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-[#000B1D] p-4 rounded-lg border border-blue-900/50">
-                    <div class="text-xs text-gray-500 uppercase mb-1">Blockchain Network</div>
-                    <select [(ngModel)]="config.network" (ngModelChange)="onConfigChange.emit(config)"
-                        class="w-full bg-[#101D35] text-white border border-gray-700 rounded p-2 text-sm focus:border-[#00D1FF] outline-none">
-                        <option value="Preprod">Cardano Preprod (Testnet)</option>
-                        <option value="Mainnet">Cardano Mainnet</option>
-                    </select>
-                </div>
-
-                <div class="bg-[#000B1D] p-4 rounded-lg border border-blue-900/50 flex flex-col justify-center">
-                    <div class="flex items-center justify-between">
-                        <span class="text-sm text-gray-400">Masumi Node Status</span>
-                        <span
-                            class="px-2 py-1 rounded bg-green-500/20 text-green-400 text-xs font-bold border border-green-500/30 shadow-[0_0_10px_rgba(34,197,94,0.2)]">ONLINE</span>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" [(ngModel)]="config.useHardwareSigner" (change)="emitChange()"
+                        class="sr-only peer">
+                    <div
+                        class="w-11 h-6 bg-gray-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500">
                     </div>
-                    <div class="mt-2 text-xs text-gray-500 font-mono">v2.4.1 • Latency: 42ms</div>
-                </div>
+                </label>
             </div>
         </div>
 
+        <div>
+            <h3 class="text-lg font-medium text-[#00D1FF] mb-4">Autonomous Policies</h3>
+
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-4 bg-[#000B1D] rounded-lg border border-blue-900/50">
+                    <div>
+                        <div class="text-white font-bold">Auto-Negotiate Energy (Cold Ironing)</div>
+                        <div class="text-xs text-gray-500">Allow agent to buy power when battery < 20%.</div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" [(ngModel)]="config.autoNegotiateEnergy" (change)="emitChange()"
+                                class="sr-only peer">
+                            <div
+                                class="w-11 h-6 bg-gray-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-[#0033AD] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all">
+                            </div>
+                        </label>
+                    </div>
+
+                    <div
+                        class="flex items-center justify-between p-4 bg-[#000B1D] rounded-lg border border-blue-900/50">
+                        <div>
+                            <div class="text-white font-bold">Parametric Insurance Trigger</div>
+                            <div class="text-xs text-gray-500">Auto-claim if G-Force > 50G or Temp > 8°C.</div>
+                        </div>
+                        <label class="relative inline-flex items-center cursor-pointer">
+                            <input type="checkbox" [(ngModel)]="config.parametricInsurance" (change)="emitChange()"
+                                class="sr-only peer">
+                            <div
+                                class="w-11 h-6 bg-gray-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:bg-[#0033AD] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all">
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>

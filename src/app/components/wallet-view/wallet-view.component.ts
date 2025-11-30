@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DecimalPipe, DatePipe } from '@angular/common';
 import { Transaction } from 'src/app/models/system.models';
 
 @Component({
   selector: 'app-wallet-view',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DecimalPipe, DatePipe],
   templateUrl: './wallet-view.component.html',
   styleUrls: ['./wallet-view.component.css']
 })

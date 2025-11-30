@@ -14,5 +14,7 @@ export class SettingsViewComponent {
   @Input() config!: SystemConfig;
   @Output() onConfigChange = new EventEmitter<SystemConfig>();
 
-
+  emitChange() {
+    this.onConfigChange.emit(this.config);
+  }
 }
